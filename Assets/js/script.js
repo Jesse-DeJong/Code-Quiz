@@ -38,7 +38,8 @@ function renderQuestion () {
 // Start Quiz - Clear function
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
-    stageSelector.removeChild(stageSelector.childNodes[2]); // Removes <btn>
+    stageSelector.removeChild(stageSelector.childNodes[1]); // <btn now index[1] - Removes <btn>
+    // runGame();                                              // Starts the game loop
 }
 // Answer Selection - Clear function
 function answerClear () {
@@ -65,11 +66,11 @@ function mainMenu () {
     node.appendChild(textnode);                             // Append the textnode to the node
     stageSelector.appendChild(node);                        // Append the <p> node to the stage
 
-    var nodeBTN = document.createElement("p");              // Create a <p> node
-    var textnodeBTN = document.createTextNode("Start Quiz");// Create a text node for the button
-    nodeBTN.appendChild(textnodeBTN);                       // Append the textnode to the node
-    stageSelector.appendChild(nodeBTN);                     // Append the <p> node to the stage
+    var nodeBTN = document.createElement("button");         // Create a <button> node
+    nodeBTN.innerHTML = ("Start Quiz");                     // Create a text node for the button
+    stageSelector.appendChild(nodeBTN);                     // Append the <button> node to the stage
     nodeBTN.setAttribute("class", "button");                // Add class "button" to the button
+    nodeBTN.onclick = startClear;                         // Calls the clear function when <btn> pressed
 }
 
 
@@ -78,12 +79,6 @@ function init() {
     mainMenu();
     //reset timer
 }
-
-
-
-// Start Quiz Button logic
-    // stageSelector.childNodes[3].addEventListener("click", startClear() renderQuestion());
-
 
 
 
