@@ -63,7 +63,7 @@ function answerClear () {
 
 
 // Quiz runstate
-function runGame (questions) {
+function runGame () {
     for (i = 0; i < questions.length; i++) {    // Loop over renders for <i> question
         renderQuestion (i);                  // Parse current <i> into stage renderer
     }
