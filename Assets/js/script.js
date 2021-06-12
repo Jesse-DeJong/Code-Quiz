@@ -4,20 +4,44 @@ var stageSelector = document.querySelector(".stage");
 // Menu Text
 var menuText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!";
 
+// Questions
+var questions = [
+    "Commonly used data types DO NOT include:",
+    "Question 2",
+    "Question 3",
+    "Question 4",
+    "Question 5"
+];
+
+// Answers
+var q1Answers = [
+    "Strings",
+    "Booleans",
+    "Alerts",
+    "Numbers"
+];
+
+var q2Answers = [];
+var q3Answers = [];
+var q4Answers = [];
+var q5Answers = [];
 
 
 
 
+// Render current question function
+function renderQuestion () {
+    
+}
 
 
 
+// Quiz runstate
+function runGame () {
+    for (i = 0; i < questions.length; i++) {
 
-
-
-
-
-
-
+    }
+}
 
 
 
