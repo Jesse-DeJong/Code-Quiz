@@ -34,6 +34,7 @@ function mainMenu () {
     var textnodeBTN = document.createTextNode("Start Quiz");// Create a text node for the button
     nodeBTN.appendChild(textnodeBTN);                       // Append the textnode to the node
     stageSelector.appendChild(nodeBTN);                     // Append the <p> node to the stage
+    nodeBTN.setAttribute("class", "button");                // Add class "button" to the button
 }
 
 
