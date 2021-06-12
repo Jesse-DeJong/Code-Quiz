@@ -1,4 +1,4 @@
-// DOM target for quiz
+// DOM target for content injection
 var stageSelector = document.querySelector(".stage");
 
 // Menu Text
@@ -28,10 +28,21 @@ var q5Answers = [];
 
 
 
-
 // Render current question function
 function renderQuestion () {
-    
+
+}
+
+
+
+// Start Quiz - Clear function
+function startClear () {
+    stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
+    stageSelector.removeChild(stageSelector.childNodes[2]); // Removes <btn>
+}
+// Answer Selection - Clear function
+function answerClear () {
+
 }
 
 
@@ -67,6 +78,12 @@ function init() {
     mainMenu();
     //reset timer
 }
+
+
+
+// Start Quiz Button logic
+    // stageSelector.childNodes[3].addEventListener("click", startClear() renderQuestion());
+
 
 
 
