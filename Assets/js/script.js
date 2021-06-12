@@ -14,6 +14,8 @@ var questions = [
 ];
 
 // Answers
+var answers = [q1Answers, q2Answers, q3Answers, q4Answers, q5Answers];
+
 var q1Answers = [
     "Strings",
     "Booleans",
@@ -30,7 +32,19 @@ var q5Answers = [];
 
 // Render current question function
 function renderQuestion () {
+    var currentQuestion = answers[i];
+    stageSelector.textContent = questions[i];                       // Set heading text for current question
 
+    var list = document.createElement("ul");                        // Create an <ul> node
+    stageSelector.appendChild(list);                                // Append <ul> to the stage
+
+    for (j = 0; j < currentQuestion.length; j++) {                  // Loop over creating <li> nodes and appending their text value from the current answers array
+        var listItem = document.createElement("li");                // Create an <li> node
+        var textnode = document.createTextNode(currentQuestion[j]); // Create a text node parseing 
+        listItem.appendChild(textnode);                             // Append the textnode to the <li> node
+        list.appendChild(listItem);                                 // Append the <li> node to the <ul>
+    }
+    
 }
 
 
@@ -39,7 +53,7 @@ function renderQuestion () {
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
     stageSelector.removeChild(stageSelector.childNodes[1]); // <btn now index[1] - Removes <btn>
-    // runGame();                                              // Starts the game loop
+    runGame();                                              // Starts the game loop
 }
 // Answer Selection - Clear function
 function answerClear () {
@@ -49,9 +63,9 @@ function answerClear () {
 
 
 // Quiz runstate
-function runGame () {
-    for (i = 0; i < questions.length; i++) {
-
+function runGame (questions) {
+    for (i = 0; i < questions.length; i++) {    // Loop over renders for <i> question
+        renderQuestion (i);                  // Parse current <i> into stage renderer
     }
 }
 
