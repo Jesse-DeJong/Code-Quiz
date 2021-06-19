@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin: 10px 0px;
 }
 
 .stage2 {
@@ -66,4 +67,8 @@ p {
 
     background-color: purple;
     border-radius: 7px;
+}
+
+label {
+    margin-right: 5px;
 }

@@ -1,7 +1,10 @@
 // DOM target for content injection
 var stageSelector = document.querySelector(".stage");
-var qText = document.getElementById("question")
-var clock = document.getElementById("time")
+var stageSelector2 = document.getElementById("stage2");
+var highscores = document.querySelector("highscores");
+var initials = document.querySelector("input");
+var qText = document.getElementById("question");
+var clock = document.getElementById("time");
 
 // Menu Text
 var menuText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!";
@@ -64,7 +67,17 @@ var playerResponse = [];
 var position = 0;
 var score = 0;
 var time = 75;
-
+if (localStorage.getItem("moniker") == null) {
+    var moniker = [];
+} else {
+var moniker = JSON.parse(localStorage.getItem("moniker", ", "));
+}
+if (localStorage.getItem("hs") == null) {
+    var hs = [];
+} else {
+var hs = JSON.parse(localStorage.getItem("hs", ", "));
+}
+var points = localStorage.getItem("score");
 
 // Start Quiz - Clear function
 function startClear () {
@@ -89,12 +102,33 @@ function timer () {
     }, 1000);
 }
 
+function updateHighscore () {
+
+    moniker.push(initials.value)
+    localStorage.setItem("moniker", JSON.stringify(moniker, ", "));
+    hs.push(points);
+    localStorage.setItem("hs", JSON.stringify(hs, ", "));
+
+    // renderHighscores();
+}
+
+function submitHighscore () {
+
+    localStorage.setItem("score", time);
+
+    window.location.href = "./Highscores.html";
+}
+
+
 
 
 function renderQuestion () {
 
     if (position >= questions.length) {
-        qText.textContent = "Game Over, You got " + score + " correct!";
+
+        qText.innerHTML = "<h1>" + "Game Over, You got " + score + " correct! With " + time + " seconds remaining!" + "</h1><br>";
+
+        qText.innerHTML += "<button class='button' onclick='submitHighscore(time)'>" + "Submit Highscore" + "</button>";
         // position = 0;
         // score = 0;
         // playerResponse = [];
@@ -103,7 +137,7 @@ function renderQuestion () {
 
     // pagenation?
 
-    qText.textContent = questions[position];    // Update to the current question
+    qText.innerHTML = "<h1>" + questions[position] + "</h1><br>";    // Update to the current question
     
     qText.innerHTML += "<button class='button' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
     qText.innerHTML += "<button class='button' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
