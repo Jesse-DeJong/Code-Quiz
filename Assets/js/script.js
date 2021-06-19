@@ -1,5 +1,6 @@
 // DOM target for content injection
 var stageSelector = document.querySelector(".stage");
+var clock = document.getElementById("time")
 
 // Menu Text
 var menuText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!";
@@ -73,6 +74,19 @@ function startClear () {
 
 
 
+// Countdown Timer
+function timer () {
+    var time = 75
+    var countdown = setInterval (function () {
+        time--;
+        clock.textContent = "Time: " + time;
+    if (time <= 0) 
+        clearInterval(countdown);
+    }, 1000);
+}
+
+
+
 function renderQuestion () {
 
     if (position >= questions.length) {
@@ -83,7 +97,7 @@ function renderQuestion () {
         return false;
     }
 
-    // pagenation
+    // pagenation?
 
     stageSelector.textContent = questions[position];    // Display the current question
     
@@ -120,14 +134,13 @@ function mainMenu () {
     nodeBTN.innerHTML = ("Start Quiz");                     // Create a text node for the button
     stageSelector.appendChild(nodeBTN);                     // Append the <button> node to the stage
     nodeBTN.setAttribute("class", "button");                // Add class "button" to the button
-    nodeBTN.onclick = startClear;                         // Calls the clear function when <btn> pressed
+    nodeBTN.onclick = startClear;                           // Calls the clear function when <btn> pressed
 }
 
 
 
 function init() {
     mainMenu();
-    //reset timer
 }
 
 
