@@ -78,13 +78,14 @@ function startClear () {
 // Countdown Timer
 function timer () {
     
-    var countdown = setInterval (function () {
-        time--;
-        clock.textContent = "Time: " + time;
-    if (time <= 0) {
-        clearInterval(countdown);
-    } else if (position >= questions.length)
-        clearInterval(countdown);
+        var countdown = setInterval (function () {
+            time--;
+            clock.textContent = "Time: " + time;
+        if (time <= 0) {
+            clearInterval(countdown);
+        } else if (position >= questions.length) {
+            clearInterval(countdown);
+        }
     }, 1000);
 }
 
@@ -121,12 +122,13 @@ function checkAnswer (x) { // Parse index of which button was pressed through <x
         position++; // Updates player position in the quiz to the next question
         console.log("if" + position);
         renderQuestion(); // Re-calls the render function with the updated position
-    } else
-        position++
+    } else {
+        position++;
         time = time - 10;
         console.log("else" + position);
         renderQuestion();
     }
+}
 
 
 
