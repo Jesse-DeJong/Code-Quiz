@@ -1,5 +1,6 @@
 // DOM target for content injection
 var stageSelector = document.querySelector(".stage");
+var qText = document.getElementById("question")
 var clock = document.getElementById("time")
 
 // Menu Text
@@ -67,10 +68,10 @@ var time = 75;
 
 // Start Quiz - Clear function
 function startClear () {
-    stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
-    stageSelector.removeChild(stageSelector.childNodes[1]); // <btn now index[1] - Removes <btn>
-    timer();
-    renderQuestion();                                              // Starts the game loop
+    stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <p>
+    stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <btn>
+    timer();                                                // Initiates the Timer
+    renderQuestion();                                       // Initiates the game loop
 }
 
 
@@ -93,21 +94,21 @@ function timer () {
 function renderQuestion () {
 
     if (position >= questions.length) {
-        stageSelector.textContent = "Game Over, You got " + score + " correct!";
-        position = 0;
-        score = 0;
-        playerResponse = [];
+        qText.textContent = "Game Over, You got " + score + " correct!";
+        // position = 0;
+        // score = 0;
+        // playerResponse = [];
         return false;
     }
 
     // pagenation?
 
-    stageSelector.textContent = questions[position];    // Display the current question
+    qText.textContent = questions[position];    // Update to the current question
     
-    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
-    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
-    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=2)'>" + answers[position][2] + "</button><br>";  // Generate button for answer index 2
-    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=3)'>" + answers[position][3] + "</button><br>";  // Generate button for answer index 3
+    qText.innerHTML += "<button class='button' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
+    qText.innerHTML += "<button class='button' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
+    qText.innerHTML += "<button class='button' onclick='checkAnswer(x=2)'>" + answers[position][2] + "</button><br>";  // Generate button for answer index 2
+    qText.innerHTML += "<button class='button' onclick='checkAnswer(x=3)'>" + answers[position][3] + "</button><br>";  // Generate button for answer index 3
 }
 
 
@@ -134,7 +135,7 @@ function checkAnswer (x) { // Parse index of which button was pressed through <x
 
 // Creates and appends elements for the default/home screen
 function mainMenu () {
-    stageSelector.textContent = "Coding Quiz Challange";    // Set heading text for homescreen
+    qText.textContent = "Coding Quiz Challange";    // Set heading text for homescreen
 
     var node = document.createElement("p");                 // Create a <p> node
     var textnode = document.createTextNode(menuText);       // Create a text node parseing menuText

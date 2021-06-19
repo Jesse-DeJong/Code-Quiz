@@ -17,6 +17,14 @@
     justify-content: center;
 }
 
+.stage2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10%;
+}
+
 /* Game stage flex box */
 .stage {
     display: flex;
