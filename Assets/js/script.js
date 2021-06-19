@@ -77,7 +77,6 @@ function startClear () {
 
 // Countdown Timer
 function timer () {
-    
         var countdown = setInterval (function () {
             time--;
             clock.textContent = "Time: " + time;
