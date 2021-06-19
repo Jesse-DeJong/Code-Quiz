@@ -7,45 +7,60 @@ var menuText = "Try to answer the following code-related questions within the ti
 // Questions
 var questions = [
     "Commonly used data types DO NOT include:",
-    "Question 2",
-    "Question 3",
-    "Question 4",
-    "Question 5"
+    "The condition in an if / else statement is enclosed within _____.",
+    "Arrays in JavaScript can be used to store _____.",
+    "String values must be enclosed within _____ when being assigned to variables.",
+    "A very useful tool used during development and debugging for printing content to the debugger is:"
 ];
 
 // Answers
-var answers = [q1Answers, q2Answers, q3Answers, q4Answers, q5Answers];
-
 var q1Answers = [
     "Strings",
     "Booleans",
     "Alerts",
     "Numbers"
 ];
+var q1Answer = "Alerts";
 
-var q2Answers = [];
-var q3Answers = [];
-var q4Answers = [];
-var q5Answers = [];
+var q2Answers = [
+    "Quotes",
+    "Curly Brackets",
+    "Parentheses",
+    "Square Brackets"
+];
+var q2Answer = "Parentheses";
 
+var q3Answers = [
+    "Numbers and Strings",
+    "Other Arrays",
+    "Booleans",
+    "All of the Above"
+];
+var q3Answer = "All of the Above";
 
+var q4Answers = [
+    "Commas",
+    "Curly Brackets",
+    "Quotes",
+    "Parentheses"
+];
+var q4Answer = "Quotes";
 
-// Render current question function
-function renderQuestion () {
-    var currentQuestion = answers[i];
-    stageSelector.textContent = questions[i];                       // Set heading text for current question
+var q5Answers = [
+    "JavaScript",
+    "Terminal / Bash",
+    "For Loops",
+    "Console.log"
+];
+var q5Answer = "Console.log";
 
-    var list = document.createElement("ul");                        // Create an <ul> node
-    stageSelector.appendChild(list);                                // Append <ul> to the stage
+var answers = [q1Answers, q2Answers, q3Answers, q4Answers, q5Answers];
+var answer = [q1Answer, q2Answer, q3Answer, q4Answer, q5Answer];
 
-    for (j = 0; j < currentQuestion.length; j++) {                  // Loop over creating <li> nodes and appending their text value from the current answers array
-        var listItem = document.createElement("li");                // Create an <li> node
-        var textnode = document.createTextNode(currentQuestion[j]); // Create a text node parseing 
-        listItem.appendChild(textnode);                             // Append the textnode to the <li> node
-        list.appendChild(listItem);                                 // Append the <li> node to the <ul>
-    }
-    
-}
+// Systems
+var playerResponse = [];
+var position = 0;
+var score = 0;
 
 
 
@@ -53,20 +68,41 @@ function renderQuestion () {
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
     stageSelector.removeChild(stageSelector.childNodes[1]); // <btn now index[1] - Removes <btn>
-    runGame();                                              // Starts the game loop
-}
-// Answer Selection - Clear function
-function answerClear () {
-
+    renderQuestion();                                              // Starts the game loop
 }
 
 
 
-// Quiz runstate
-function runGame () {
-    for (i = 0; i < questions.length; i++) {    // Loop over renders for <i> question
-        renderQuestion (i);                  // Parse current <i> into stage renderer
+function renderQuestion () {
+
+    if (position >= questions.length) {
+        stageSelector.textContent = "Game Over, You got " + score + " correct!";
+        position = 0;
+        score = 0;
+        playerResponse = [];
+        return false;
     }
+
+    // pagenation
+
+    stageSelector.textContent = questions[position];    // Display the current question
+    
+    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
+    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
+    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=2)'>" + answers[position][2] + "</button><br>";  // Generate button for answer index 2
+    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=3)'>" + answers[position][3] + "</button><br>";  // Generate button for answer index 3
+}
+
+
+
+function checkAnswer (x) { // Parse index of which button was pressed through <x>
+
+    check = answers[position][x];   // Gets value for comparison
+
+    if (check == answer[position])  // Compare player choice to current question correct answer
+        score++;    // Adds a point for a correct answer
+        position++; // Updates player position in the quiz to the next question
+        renderQuestion(); // Re-calls the render function with the updated position
 }
 
 
