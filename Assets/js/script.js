@@ -62,13 +62,14 @@ var answer = [q1Answer, q2Answer, q3Answer, q4Answer, q5Answer];
 var playerResponse = [];
 var position = 0;
 var score = 0;
-
+var time = 75;
 
 
 // Start Quiz - Clear function
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[1]); // Removes <p>
     stageSelector.removeChild(stageSelector.childNodes[1]); // <btn now index[1] - Removes <btn>
+    timer();
     renderQuestion();                                              // Starts the game loop
 }
 
@@ -76,11 +77,13 @@ function startClear () {
 
 // Countdown Timer
 function timer () {
-    var time = 75
+    
     var countdown = setInterval (function () {
         time--;
         clock.textContent = "Time: " + time;
-    if (time <= 0) 
+    if (time <= 0) {
+        clearInterval(countdown);
+    } else if (position >= questions.length)
         clearInterval(countdown);
     }, 1000);
 }
@@ -101,10 +104,10 @@ function renderQuestion () {
 
     stageSelector.textContent = questions[position];    // Display the current question
     
-    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
-    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
-    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=2)'>" + answers[position][2] + "</button><br>";  // Generate button for answer index 2
-    stageSelector.innerHTML += "<button class='button' name='option' onclick='checkAnswer(x=3)'>" + answers[position][3] + "</button><br>";  // Generate button for answer index 3
+    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
+    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
+    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=2)'>" + answers[position][2] + "</button><br>";  // Generate button for answer index 2
+    stageSelector.innerHTML += "<button class='button' onclick='checkAnswer(x=3)'>" + answers[position][3] + "</button><br>";  // Generate button for answer index 3
 }
 
 
@@ -113,11 +116,18 @@ function checkAnswer (x) { // Parse index of which button was pressed through <x
 
     check = answers[position][x];   // Gets value for comparison
 
-    if (check == answer[position])  // Compare player choice to current question correct answer
+    if (check == answer[position]) { // Compare player choice to current question correct answer
         score++;    // Adds a point for a correct answer
         position++; // Updates player position in the quiz to the next question
+        console.log("if" + position);
         renderQuestion(); // Re-calls the render function with the updated position
-}
+    } else
+        position++
+        time = time - 10;
+        console.log("else" + position);
+        renderQuestion();
+    }
+
 
 
 
