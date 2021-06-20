@@ -1,4 +1,4 @@
-// DOM target for content injection / removal
+// DOM targeting for content injection / removal
 var stageSelector = document.querySelector(".stage");
 var stageSelector2 = document.getElementById("stage2");
 var highscores = document.getElementById("highscores");
@@ -72,6 +72,7 @@ var playerResponse = [];
 var position = 0;
 var score = 0;
 var time = 75;
+
 // Local storage for highscore variables
 // If scores already exist render them, else fill in some placeholders
 if (localStorage.getItem("moniker") == null) {
@@ -86,7 +87,9 @@ var hs = JSON.parse(localStorage.getItem("hs", ", "));
 }
 var points = localStorage.getItem("score");
 
-// On start of quiz - Clear menu text
+
+
+// On start of quiz - Clear menu text and begin the timer
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <p>
     stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <btn>
@@ -99,27 +102,27 @@ function startClear () {
 // Countdown Timer
 function timer () {
         var countdown = setInterval (function () {
-            time--;
-            clock.textContent = "Time: " + time;
-        if (time <= 0) {
-            clearInterval(countdown);
-        } else if (position >= questions.length) {
-            clearInterval(countdown);
+            time--;                                         // Iterate -1 sec
+            clock.textContent = "Time: " + time;            // Inject current time to the DOM
+        if (time <= 0) {                                    // Stop condition 0 sec remaining
+            clearInterval(countdown);                       // Prevent counting into negative time
+        } else if (position >= questions.length) {          // Stop condition if all questions are answered
+            clearInterval(countdown);                       // Prevent counting into negative timer
         }
-    }, 1000);
+    }, 1000);                                               // Update every 1 second
 }
 
 
 
 function clearHighscores () {
-    localStorage.clear();   // Remove saved scores from local storage
-    moniker = [];           // Clear variable for saved names
-    hs = [];                // Clear variable for saved scores
+    localStorage.clear();                                   // Remove saved scores from local storage
+    moniker = [];                                           // Clear variable for saved names
+    hs = [];                                                // Clear variable for saved scores
 
-    for (i = 0; i < hs.length; i++) {   // Loop to create a new <li> for each item in HS array
-        hsList.remove();
-    }
-        window.location.href = "./Index.html";  // Return to main menu
+    // for (i = 0; i < hs.length; i++) {                       
+    //     hsList.remove();                                    // Loop deleation of <li> for each item in HS array
+    // }
+        window.location.href = "./Index.html";              // Return to main menu
 }
 
 function viewHighscores () {
@@ -132,53 +135,50 @@ function renderHighscores () {
     if (del1.parentNode !== null) {
     del1.parentNode.removeChild(del1);  // Remove <label>
     del2.parentNode.removeChild(del2);  // Remove <input>
-    del3.parentNode.removeChild(del3);  // Remove <button> Submit
+    del3.parentNode.removeChild(del3);  // Remove <button> for Submit
     }
-    // Add sorting functionality so highscores are ordered by score
-    // convert moniker/hs to an object of key:value pairs?
 
-    for (i = 0; i < hs.length; i++) {   // Loop to create a new <li> for each item in HS array
+    // Add sorting functionality so highscores are ordered by score
+    // convert moniker/hs arrays to an object of key:value pairs?
+
+    for (i = 0; i < hs.length; i++) {                                                            // Loop to create a new <li> for each item in HS array
         highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li>";  // Generate <li> for each saved highscore
     }
 }
 
 function updateHighscore () {
 
-    moniker.push(initials.value)
-    localStorage.setItem("moniker", JSON.stringify(moniker, ", "));
-    hs.push(points);
-    localStorage.setItem("hs", JSON.stringify(hs, ", "));
+    moniker.push(initials.value)                                        // Add user input to array of saved names for highscores
+    localStorage.setItem("moniker", JSON.stringify(moniker, ", "));     // Convert with JSON to a string and store this value in localStorage
+    hs.push(points);                                                    // Add score (remaining seconds) to array of saved highscores
+    localStorage.setItem("hs", JSON.stringify(hs, ", "));               // Convert with JSON to a string and store this value in localStorage
 
-    renderHighscores();
+    renderHighscores();                                                 // Call the function to render these updated values
 }
 
 function submitHighscore () {
 
-    localStorage.setItem("score", time);
+    localStorage.setItem("score", time);                                // Save the players remaining time in localStorage
 
-    window.location.href = "./Highscores.html";
+    window.location.href = "./Highscores.html";                         // Change page to Highscores
 
-    renderHighscores();
+    renderHighscores();                                                 // Call the function to render the highscores
 }
 
 
 
 function renderQuestion () {
 
-    if (position >= questions.length) {
+    if (position >= questions.length) { // Check if player has completed all questions
 
         qText.innerHTML = "<h1>" + "Game Over, You got " + score + " correct! With " + time + " seconds remaining!" + "</h1><br>";
-
         qText.innerHTML += "<button class='button' onclick='submitHighscore(time)'>" + "Submit Highscore" + "</button>";
-        // position = 0;
-        // score = 0;
-        // playerResponse = [];
-        return false;
+
+        return false; // Stop condition for if all questions are completed
     }
 
-    // pagenation?
-
-    qText.innerHTML = "<h1>" + questions[position] + "</h1><br>";    // Update to the current question
+    // Core functionality, update to current question and generate buttons tied to each answer
+    qText.innerHTML = "<h1>" + questions[position] + "</h1><br>";    // Update <h1> to the current question
     
     qText.innerHTML += "<button class='button' onclick='checkAnswer(x=0)'>" + answers[position][0] + "</button><br>";  // Generate button for answer index 0
     qText.innerHTML += "<button class='button' onclick='checkAnswer(x=1)'>" + answers[position][1] + "</button><br>";  // Generate button for answer index 1
@@ -188,28 +188,28 @@ function renderQuestion () {
 
 
 
-function checkAnswer (x) { // Parse index of which button was pressed through <x>
+function checkAnswer (x) {                  // Parse index of which button was pressed through <x>
 
-    check = answers[position][x];   // Gets value for comparison
+    var check = answers[position][x];       // Gets value for comparison
 
-    if (check == answer[position]) { // Compare player choice to current question correct answer
-        score++;    // Adds a point for a correct answer
-        position++; // Updates player position in the quiz to the next question
-        console.log("if" + position);
-        renderQuestion(); // Re-calls the render function with the updated position
-    } else {
-        position++;
-        time = time - 10;
-        console.log("else" + position);
-        renderQuestion();
+    if (check == answer[position]) {        // Compare player choice to current question's correct answer
+        score++;                            // Adds a point for a correct answer
+        position++;                         // Iterates player position in the quiz to the next question
+        console.log("if " + position);      // Console.log that players choice was correct
+        renderQuestion();                   // Re-calls the render function with the iterated position
+    } else {                                // IF player choice for current question's answer was INcorrect
+        position++;                         // Iterates player position in the quiz to the next question 
+        time = time - 10;                   // Deduct 10seconds from the current running timer
+        console.log("else " + position);    // Console.log that players choice was INcorrect
+        renderQuestion();                   // Re-calls the render function with the iterated position  
     }
 }
 
 
 
-// Creates and appends elements for the default/home screen
+// Create and append elements for the default/home screen
 function mainMenu () {
-    qText.textContent = "Coding Quiz Challange";    // Set heading text for homescreen
+    qText.textContent = "Coding Quiz Challange";            // Set heading text
 
     var node = document.createElement("p");                 // Create a <p> node
     var textnode = document.createTextNode(menuText);       // Create a text node parseing menuText
@@ -226,8 +226,8 @@ function mainMenu () {
 
 
 function init() {
-    if (window.location.href.includes("Index.html") == true) {
-        mainMenu();
+    if (window.location.href.includes("Index.html") == true) {      // Run only when on Index.html
+        mainMenu();                                                 // Call function to build elements and inject content for the starting position
     }
 }
 
