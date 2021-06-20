@@ -126,11 +126,16 @@ function clearHighscores () {
 }
 
 function viewHighscores () {
-    var newpage = window.location.href = "./Highscores.html";
-    newpage.onload = renderHighscores();   
+    console.log("goodbye");
+    window.location.assign("./Highscores.html");
+    console.log("hello"); 
+    renderHighscores();
+    console.log("hello");   
 }
 
 function renderHighscores () {
+
+    window.location.assign("./Highscores.html");                        // Change page to Highscores
 
     if (del1.parentNode !== null) {
     del1.parentNode.removeChild(del1);  // Remove <label>
@@ -160,7 +165,7 @@ function submitHighscore () {
 
     localStorage.setItem("score", time);                                // Save the players remaining time in localStorage
 
-    window.location.href = "./Highscores.html";                         // Change page to Highscores
+    window.location.assign("./Highscores.html");                        // Change page to Highscores
 
     renderHighscores();                                                 // Call the function to render the highscores
 }
@@ -228,9 +233,12 @@ function mainMenu () {
 function init() {
     if (window.location.href.includes("Index.html") == true) {      // Run only when on Index.html
         mainMenu();                                                 // Call function to build elements and inject content for the starting position
+    } else if (window.location.href.includes("Highscores.html") == true) {
+        for (i = 0; i < hs.length; i++) {                                                            // Loop to create a new <li> for each item in HS array
+            highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li>";  // Generate <li> for each saved highscore
+        }
     }
 }
-
 
 
 init();
