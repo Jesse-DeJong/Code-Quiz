@@ -1,10 +1,12 @@
 // DOM target for content injection
 var stageSelector = document.querySelector(".stage");
 var stageSelector2 = document.getElementById("stage2");
-var highscores = document.querySelector("highscores");
+var highscores = document.getElementById("highscores");
 var initials = document.querySelector("input");
 var qText = document.getElementById("question");
 var clock = document.getElementById("time");
+var del = document.getElementsByClassName("del");
+// var del = document.getElementsByClassName("HSbtn");
 
 // Menu Text
 var menuText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!";
@@ -68,12 +70,12 @@ var position = 0;
 var score = 0;
 var time = 75;
 if (localStorage.getItem("moniker") == null) {
-    var moniker = [];
+    var moniker = ["Foo", "Bar"];
 } else {
 var moniker = JSON.parse(localStorage.getItem("moniker", ", "));
 }
 if (localStorage.getItem("hs") == null) {
-    var hs = [];
+    var hs = ["37", "14"];
 } else {
 var hs = JSON.parse(localStorage.getItem("hs", ", "));
 }
@@ -102,6 +104,17 @@ function timer () {
     }, 1000);
 }
 
+
+
+function renderHighscores () {
+
+    del.parentNode.removeChild(del);
+
+    for (i = 0; i < hs.length; i++) {   // Loop to create a new <li> for each item in HS array
+        highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li><br>";  // Generate <li> for each saved highscore
+    }
+}
+
 function updateHighscore () {
 
     moniker.push(initials.value)
@@ -109,7 +122,7 @@ function updateHighscore () {
     hs.push(points);
     localStorage.setItem("hs", JSON.stringify(hs, ", "));
 
-    // renderHighscores();
+    renderHighscores();
 }
 
 function submitHighscore () {
@@ -117,6 +130,8 @@ function submitHighscore () {
     localStorage.setItem("score", time);
 
     window.location.href = "./Highscores.html";
+
+    renderHighscores();
 }
 
 
