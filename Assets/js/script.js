@@ -1,17 +1,19 @@
-// DOM target for content injection
+// DOM target for content injection / removal
 var stageSelector = document.querySelector(".stage");
 var stageSelector2 = document.getElementById("stage2");
 var highscores = document.getElementById("highscores");
+var hsList = document.getElementsByClassName("hsList");
 var initials = document.querySelector("input");
 var qText = document.getElementById("question");
 var clock = document.getElementById("time");
-var del = document.getElementsByClassName("del");
-// var del = document.getElementsByClassName("HSbtn");
+var del1 = document.getElementById("del1"); 
+var del2 = document.getElementById("del2");
+var del3 = document.getElementById("del3");
 
 // Menu Text
 var menuText = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your time by 10 seconds!";
 
-// Questions
+// Question Text
 var questions = [
     "Commonly used data types DO NOT include:",
     "The condition in an if / else statement is enclosed within _____.",
@@ -20,7 +22,7 @@ var questions = [
     "A very useful tool used during development and debugging for printing content to the debugger is:"
 ];
 
-// Answers
+// Answer Text
 var q1Answers = [
     "Strings",
     "Booleans",
@@ -61,14 +63,17 @@ var q5Answers = [
 ];
 var q5Answer = "Console.log";
 
+// Answer and validation arrays
 var answers = [q1Answers, q2Answers, q3Answers, q4Answers, q5Answers];
 var answer = [q1Answer, q2Answer, q3Answer, q4Answer, q5Answer];
 
-// Systems
+// System Variables
 var playerResponse = [];
 var position = 0;
 var score = 0;
 var time = 75;
+// Local storage for highscore variables
+// If scores already exist render them, else fill in some placeholders
 if (localStorage.getItem("moniker") == null) {
     var moniker = ["Foo", "Bar"];
 } else {
@@ -81,7 +86,7 @@ var hs = JSON.parse(localStorage.getItem("hs", ", "));
 }
 var points = localStorage.getItem("score");
 
-// Start Quiz - Clear function
+// On start of quiz - Clear menu text
 function startClear () {
     stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <p>
     stageSelector.removeChild(stageSelector.childNodes[3]); // Removes <btn>
@@ -106,10 +111,29 @@ function timer () {
 
 
 
+function clearHighscores () {
+    localStorage.clear();   // Remove saved scores from local storage
+    moniker = [];           // Clear variable for saved names
+    hs = [];                // Clear variable for saved scores
+
+    for (i = 0; i < hs.length; i++) {   // Loop to create a new <li> for each item in HS array
+        hsList.remove();
+    }
+        window.location.href = "./Index.html";  // Return to main menu
+}
+
+function viewHighscores () {
+    var newpage = window.location.href = "./Highscores.html";
+    newpage.onload = renderHighscores();   
+}
+
 function renderHighscores () {
 
-    del.parentNode.removeChild(del);
-
+    if (del1.parentNode !== null) {
+    del1.parentNode.removeChild(del1);  // Remove <label>
+    del2.parentNode.removeChild(del2);  // Remove <input>
+    del3.parentNode.removeChild(del3);  // Remove <button> Submit
+    }
     // Add sorting functionality so highscores are ordered by score
     // convert moniker/hs to an object of key:value pairs?
 
@@ -136,7 +160,6 @@ function submitHighscore () {
 
     renderHighscores();
 }
-
 
 
 
@@ -184,7 +207,6 @@ function checkAnswer (x) { // Parse index of which button was pressed through <x
 
 
 
-
 // Creates and appends elements for the default/home screen
 function mainMenu () {
     qText.textContent = "Coding Quiz Challange";    // Set heading text for homescreen
@@ -204,7 +226,9 @@ function mainMenu () {
 
 
 function init() {
-    mainMenu();
+    if (window.location.href.includes("Index.html") == true) {
+        mainMenu();
+    }
 }
 
 

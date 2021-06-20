@@ -12,9 +12,9 @@
         <h1 id="stage2">Highscores</h1>
         
         <div class="HSbtn">
-            <label class="input del" for="name">Enter Initials:</label>
-            <input class="input del"></input>
-            <button class="button del" onclick="updateHighscore()">Submit</button>
+            <label id="del1" class="input del" for="name">Enter Initials:</label>
+            <input id="del2" class="input del"></input>
+            <button id="del3" class="button del" onclick="updateHighscore()">Submit</button>
         </div>
 
         <ol id="highscores">
@@ -23,7 +23,7 @@
     </div>
     <div class="HSbtn2">
     <button onclick="window.location.href='/Index.html'" class="button return">Return</button>
-    <button onclick="localStorage.clear()" class="button clearHighscores">Clear Highscores</button>
+    <button onclick="clearHighscores()" class="button clearHighscores">Clear Highscores</button>
     </div>
 
     <footer>
