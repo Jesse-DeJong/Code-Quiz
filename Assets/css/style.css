@@ -1,5 +1,7 @@
 :root {
     background-color: white;
+    --purple: rgb(179, 114, 179, 0.4);
+    --pink: rgb(252, 180, 192, 0.4);
 }
 
 /* Header flex box */
@@ -78,4 +80,14 @@ p {
 
 label {
     margin-right: 5px;
+}
+
+li {
+    padding: 2px 200px;
+
+    background: var(--pink);
+}
+
+li:nth-child(odd) {
+    background: var(--purple);
 }

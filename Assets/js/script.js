@@ -110,8 +110,11 @@ function renderHighscores () {
 
     del.parentNode.removeChild(del);
 
+    // Add sorting functionality so highscores are ordered by score
+    // convert moniker/hs to an object of key:value pairs?
+
     for (i = 0; i < hs.length; i++) {   // Loop to create a new <li> for each item in HS array
-        highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li><br>";  // Generate <li> for each saved highscore
+        highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li>";  // Generate <li> for each saved highscore
     }
 }
 

@@ -17,13 +17,13 @@
             <button class="button del" onclick="updateHighscore()">Submit</button>
         </div>
 
-        <ul id="highscores">
+        <ol id="highscores">
 
-        </ul>
+        </ol>
     </div>
     <div class="HSbtn2">
     <button onclick="window.location.href='/Index.html'" class="button return">Return</button>
-    <button class="button clearHighscores">Clear Highscores</button>
+    <button onclick="localStorage.clear()" class="button clearHighscores">Clear Highscores</button>
     </div>
 
     <footer>
