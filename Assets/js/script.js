@@ -233,7 +233,7 @@ function mainMenu () {
 function init() {
     if ((window.location.href.includes("Index.html")||(window.location.href.includes("index.html"))) == true) {      // Run only when on Index.html
         mainMenu();                                                 // Call function to build elements and inject content for the starting position
-    } else if (window.location.href.includes("Highscores.html") == true) {
+    } else if (window.location.href.includes("highscores.html") == true) {
         for (i = 0; i < hs.length; i++) {                                                            // Loop to create a new <li> for each item in HS array
             highscores.innerHTML += "<li class='hsList'>" + moniker[i] + " --- " + hs[i] + "</li>";  // Generate <li> for each saved highscore
         }
