@@ -123,7 +123,7 @@ function clearHighscores () {
     //     hsList.remove();                                    // Loop deleation of <li> for each item in HS array
     // }
     // window.location.assign("./index.html");                              // Return to main menu
-    window.location.assign("https://jesse-dejong.github.io/Code-Quiz/"); // Return to main menu when loaded on GitHub pages
+    window.location.assign("https://jesse-dejong.github.io/Code-Quiz/index.html"); // Return to main menu when loaded on GitHub pages
 }
 
 function viewHighscores () {
@@ -232,7 +232,8 @@ function mainMenu () {
 
 
 function init() {
-    if ((window.location.href.includes("Index.html")||(window.location.href.includes("index.html"))) == true) {      // Run only when on Index.html
+    // if ((window.location.href.includes("Index.html")||(window.location.href.includes("index.html"))) == true) {      // Run only when on index.html
+    if (window.location.href.includes("https://jesse-dejong.github.io/Code-Quiz/"))) == true) {      // Run only when on index.html --- on github pages        
         mainMenu();                                                 // Call function to build elements and inject content for the starting position
     } else if (window.location.href.includes("highscores.html") == true) {
         for (i = 0; i < hs.length; i++) {                                                            // Loop to create a new <li> for each item in HS array
