@@ -122,7 +122,7 @@ function clearHighscores () {
     // for (i = 0; i < hs.length; i++) {                       
     //     hsList.remove();                                    // Loop deleation of <li> for each item in HS array
     // }
-        window.location.href = "./Index.html";              // Return to main menu
+    window.location.assign("./index.html");              // Return to main menu
 }
 
 function viewHighscores () {
@@ -135,7 +135,7 @@ function viewHighscores () {
 
 function renderHighscores () {
 
-    window.location.assign("./Highscores.html");                        // Change page to Highscores
+    window.location.assign("./highscores.html");                        // Change page to Highscores
 
     if (del1.parentNode !== null) {
     del1.parentNode.removeChild(del1);  // Remove <label>
@@ -165,7 +165,7 @@ function submitHighscore () {
 
     localStorage.setItem("score", time);                                // Save the players remaining time in localStorage
 
-    window.location.assign("./Highscores.html");                        // Change page to Highscores
+    window.location.assign("./highscores.html");                        // Change page to Highscores
 
     renderHighscores();                                                 // Call the function to render the highscores
 }
