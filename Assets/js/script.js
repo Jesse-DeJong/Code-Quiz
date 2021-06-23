@@ -122,12 +122,13 @@ function clearHighscores () {
     // for (i = 0; i < hs.length; i++) {                       
     //     hsList.remove();                                    // Loop deleation of <li> for each item in HS array
     // }
-    window.location.assign("./index.html");              // Return to main menu
+    // window.location.assign("./index.html");                              // Return to main menu
+    window.location.assign("https://jesse-dejong.github.io/Code-Quiz/"); // Return to main menu when loaded on GitHub pages
 }
 
 function viewHighscores () {
     console.log("goodbye");
-    window.location.assign("./Highscores.html");
+    window.location.assign("./highscores.html");
     console.log("hello"); 
     renderHighscores();
     console.log("hello");   
